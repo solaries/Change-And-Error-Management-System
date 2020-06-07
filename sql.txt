@@ -1,0 +1,488 @@
+
+CREATE TABLE `CAEMS_authenticate_SuperAdmin` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`first_name`  VARCHAR(30)   NOT NULL    ,
+`last_name`  VARCHAR(30)   NOT NULL    ,
+`email`  VARCHAR(30)   NOT NULL    ,
+`password`  BLOB   NOT NULL    ,
+`password2`  BLOB   NOT NULL    ,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_right_Admin` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`rightName`  VARCHAR(60)   NOT NULL    ,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_right_User` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`rightName`  VARCHAR(60)   NOT NULL    ,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_role_Admin` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`roleName`  VARCHAR(60)   NOT NULL    ,
+`service_company`  BIGINT(20)   NULL   DEFAULT NULL,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_role_User` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`roleName`  VARCHAR(60)   NOT NULL    ,
+`client`  BIGINT(20)   NULL   DEFAULT NULL,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_Service_Company` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`Company`  VARCHAR(60)   NOT NULL    ,
+	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_eventLog` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`eventid`  BIGINT(20)   NOT NULL    ,
+`description`  VARCHAR(5000)   NOT NULL    ,
+`userEvent`   INT(11)    NOT NULL    ,
+`userid`  BIGINT(20)   NOT NULL    ,
+`eventDate`  DATETIME   NOT NULL    ,
+                        	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_event` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`eventName`  VARCHAR(60)   NOT NULL    ,
+                        	PRIMARY KEY (`id`)
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_authenticate_Admin` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`first_name`  VARCHAR(30)   NOT NULL    ,
+`last_name`  VARCHAR(30)   NOT NULL    ,
+`email`  VARCHAR(30)   NOT NULL    ,
+`role`  BIGINT(20)   NOT NULL    ,
+`password`  BLOB   NOT NULL    ,
+`password2`  BLOB   NOT NULL    ,
+`Service_Company`  BIGINT(20)   NOT NULL    ,
+`LeadAdmin`   INT(11)    NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_1` FOREIGN KEY (`role`) REFERENCES `Caems_role_Admin` (`id`) , 
+	CONSTRAINT `FK1_2` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_Client` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`Name`  VARCHAR(60)   NOT NULL    ,
+`Service_Company`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_8` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_authenticate_User` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`first_name`  VARCHAR(30)   NOT NULL    ,
+`last_name`  VARCHAR(30)   NOT NULL    ,
+`email`  VARCHAR(30)   NOT NULL    ,
+`role`  BIGINT(20)   NOT NULL    ,
+`password`  BLOB   NOT NULL    ,
+`password2`  BLOB   NOT NULL    ,
+`Organization`  BIGINT(20)   NOT NULL    ,
+`Lead_User`   INT(11)    NOT NULL    ,
+`Service_Company`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_3` FOREIGN KEY (`role`) REFERENCES `Caems_role_User` (`id`) , 
+	CONSTRAINT `FK1_4` FOREIGN KEY (`Organization`) REFERENCES `Caems_Client` (`id`) , 
+	CONSTRAINT `FK1_5` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_Project` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`Project_Title`  VARCHAR(60)   NOT NULL    ,
+`Organization`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_9` FOREIGN KEY (`Organization`) REFERENCES `Caems_Client` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_Change_Or_Error` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`Project`  BIGINT(20)   NOT NULL    ,
+`Change_Or_Error_Detail`  VARCHAR(200)   NOT NULL    ,
+`Log_Date`  DATETIME   NOT NULL    ,
+`Initiating_User_Type`   INT(11)    NOT NULL    ,
+`User`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_6` FOREIGN KEY (`Project`) REFERENCES `Caems_Project` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_Change_Or_Error_Movement` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`Change`  BIGINT(20)   NOT NULL    ,
+`Action`   INT(11)    NOT NULL    ,
+`Action_User_Type`   INT(11)    NOT NULL    ,
+`Action_User`  BIGINT(20)   NOT NULL    ,
+`Move_Date`  DATETIME   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_7` FOREIGN KEY (`Change`) REFERENCES `Caems_Change_Or_Error` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_role_right_Admin` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`role`  BIGINT(20)   NOT NULL    ,
+`right`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_10` FOREIGN KEY (`role`) REFERENCES `Caems_role_Admin` (`id`) , 
+	CONSTRAINT `FK1_11` FOREIGN KEY (`right`) REFERENCES `Caems_right_Admin` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+
+
+CREATE TABLE `CAEMS_role_right_User` ( 
+`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+`role`  BIGINT(20)   NOT NULL    ,
+`right`  BIGINT(20)   NOT NULL    ,
+	PRIMARY KEY (`id`), 
+	CONSTRAINT `FK1_12` FOREIGN KEY (`role`) REFERENCES `Caems_role_User` (`id`) , 
+	CONSTRAINT `FK1_13` FOREIGN KEY (`right`) REFERENCES `Caems_right_User` (`id`) 
+	)
+	COLLATE='latin1_swedish_ci'
+	ENGINE=InnoDB;
+insert into CAEMS_authenticate_SuperAdmin(first_name,last_name, email,password, password2   ) values( 'first','last', 'first@first.com','eBRAesiE+jmEL5Vjt7OHNA', 'eBRAesiE+jmEL5Vjt7OHNA'    );
+
+ insert into CAEMS_right_Admin(rightName) values('Change_Password');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Users');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Users');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Users');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Organization');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Organization');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Organization');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Project');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Project');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Project');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Change_Or_Errors');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Change_Or_Errors');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Change_Or_Errors');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Admin_Roles');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Admin_Roles');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Admin_Roles');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Admin_Role_To_Rights');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Admin_Role_To_Rights');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Admin_Role_To_Rights');
+
+ insert into CAEMS_right_Admin(rightName) values('new_Administrators');
+
+ insert into CAEMS_right_Admin(rightName) values('view_Administrators');
+
+ insert into CAEMS_right_Admin(rightName) values('edit_Administrators');
+
+ insert into CAEMS_right_User(rightName) values('Change_Password');
+
+ insert into CAEMS_right_User(rightName) values('new_Users');
+
+ insert into CAEMS_right_User(rightName) values('view_Users');
+
+ insert into CAEMS_right_User(rightName) values('edit_Users');
+
+ insert into CAEMS_right_User(rightName) values('new_Change_Or_Errors');
+
+ insert into CAEMS_right_User(rightName) values('view_Change_Or_Errors');
+
+ insert into CAEMS_right_User(rightName) values('edit_Change_Or_Errors');
+
+ insert into CAEMS_right_User(rightName) values('new_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_User(rightName) values('view_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_User(rightName) values('edit_Change_Or_Error_Movement');
+
+ insert into CAEMS_right_User(rightName) values('new_User_Roles');
+
+ insert into CAEMS_right_User(rightName) values('view_User_Roles');
+
+ insert into CAEMS_right_User(rightName) values('edit_User_Roles');
+
+ insert into CAEMS_right_User(rightName) values('new_User_Rights');
+
+ insert into CAEMS_right_User(rightName) values('view_User_Rights');
+
+ insert into CAEMS_right_User(rightName) values('edit_User_Rights');
+
+ insert into CAEMS_role_Admin(roleName) values('Admin');
+
+  insert into CAEMS_role_User(roleName) values('User');
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'Change_Password' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Users' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Users' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Users' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Organization' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Organization' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Organization' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Project' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Project' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Project' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Admin_Roles' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Admin_Roles' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Admin_Roles' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Admin_Role_To_Rights' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Admin_Role_To_Rights' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Admin_Role_To_Rights' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Administrators' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Administrators' ;
+
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Administrators' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'Change_Password' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'new_Users' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'view_Users' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'edit_Users' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'new_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'view_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'edit_Change_Or_Errors' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'new_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'view_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'edit_Change_Or_Error_Movement' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'new_User_Roles' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'view_User_Roles' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'edit_User_Roles' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'new_User_Rights' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'view_User_Rights' ;
+
+  insert into CAEMS_role_right_User(role, `right`) select 1, id from CAEMS_right_User where rightName = 'edit_User_Rights' ; 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_SUPERADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_SUPERADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_SUPERADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_SUPERADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_SUPERADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_SUPERADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_SUPERADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_SUPERADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_SUPERADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_AUTHENTICATE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_AUTHENTICATE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_AUTHENTICATE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_MOVEMENT_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_MOVEMENT_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_MOVEMENT_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_MOVEMENT_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_MOVEMENT_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_MOVEMENT_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CHANGE_OR_ERROR_MOVEMENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_CHANGE_OR_ERROR_MOVEMENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_CHANGE_OR_ERROR_MOVEMENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CLIENT_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_CLIENT_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_CLIENT_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CLIENT_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_CLIENT_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_CLIENT_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_CLIENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_CLIENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_CLIENT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_PROJECT_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_PROJECT_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_PROJECT_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_PROJECT_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_PROJECT_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_PROJECT_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_PROJECT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_PROJECT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_PROJECT_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_ADMIN_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_ADMIN_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_ADMIN_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_USER_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_RIGHT_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_USER_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_USER_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_ROLE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_ROLE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_ROLE_USER_UPDATE'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_SERVICE_COMPANY_ADD'); 
+ insert into CAEMS_event(eventName) values('FAILED_SERVICE_COMPANY_ADD'); 
+ insert into CAEMS_event(eventName) values('ERROR_SERVICE_COMPANY_ADD'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_SERVICE_COMPANY_GET'); 
+ insert into CAEMS_event(eventName) values('FAILED_SERVICE_COMPANY_GET'); 
+ insert into CAEMS_event(eventName) values('ERROR_SERVICE_COMPANY_GET'); 
+ insert into CAEMS_event(eventName) values('SUCCESSFUL_SERVICE_COMPANY_UPDATE'); 
+ insert into CAEMS_event(eventName) values('FAILED_SERVICE_COMPANY_UPDATE'); 
+ insert into CAEMS_event(eventName) values('ERROR_SERVICE_COMPANY_UPDATE');
