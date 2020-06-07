@@ -1,0 +1,250 @@
+
+@{
+    List<sphinxsolaries.Caems.Data.Models.CAEMS_role_User> data0  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_role_User>)@ViewBag.data0;
+} 
+ @{
+ List<sphinxsolaries.Caems.Data.Models.CAEMS_Client> data1  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_Client>)@ViewBag.data1;
+} 
+ @{
+ List<sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company> data2  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company>)@ViewBag.data2;
+} 
+ @{
+ 
+}  
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">New Users</h4>
+        <div class="form-validation">
+            <form id ="widgetu1290"class="form-valide" action="#"  method="post" enctype="multipart/form-data"> 
+                @Html.AntiForgeryToken()  
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">First name</label>
+                <div class="col-lg-6">
+                     <input id="First_name" name="First_name" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="30"
+                     placeholder="first name" />
+                     </div>
+                   </div>
+
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">Last name</label>
+                <div class="col-lg-6">
+                     <input id="Last_name" name="Last_name" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="30"
+                     placeholder="last name" />
+                     </div>
+                   </div>
+
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">Email</label>
+                <div class="col-lg-6">
+                     <input id="Email" name="Email" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="30"
+                     placeholder="email" />
+                     </div>
+                   </div>
+
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">Role</label>
+                <div class="col-lg-6">
+                            <select class="form-control" id="Role" name="Role">
+                            <option value="">Select Role</option>
+                            @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_role_User item in data0)
+                            {
+                               <option value="@item.Id"> @item.Rolename</option>
+                            }
+                            </select>                     </div>
+                   </div>
+
+                @*<div class="form-group row">
+                <label class="col-lg-4 col-form-label">Organization</label>
+                <div class="col-lg-6">
+                            <select class="form-control" id="Organization" name="Organization">
+                            <option value="">Select Organization</option>
+                            @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_Client item in data1)
+                            {
+                               <option value="@item.Id"> @item.Name</option>
+                            }
+                            </select>                     </div>
+                   </div>
+
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">Lead user</label>
+                <div class="col-lg-6">
+                       <input id="Lead_user" name="Lead_user" required   onkeyup="doCleanN(this)"    type="Number" class="form-control" maxlength="1"
+                       placeholder="Lead User" />
+                     </div>
+                   </div>
+
+                <div class="form-group row">
+                <label class="col-lg-4 col-form-label">Service company</label>
+                <div class="col-lg-6">
+                            <select class="form-control" id="Service_company" name="Service_company">
+                            <option value="">Select Service company</option>
+                            @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company item in data2)
+                            {
+                               <option value="@item.Id"> @item.Company</option>
+                            }
+                            </select>                     </div>
+                   </div>*@
+
+                <div class="form-group row">
+                    <div class="col-lg-8 ml-auto">
+                        <button type="button" class="btn btn-primary" onclick="checkAndGo()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script> 
+
+    function doClean(text) { 
+
+        text.value = text.value.split("'").join("");
+
+        text.value = text.value.split(">").join("");
+
+        text.value = text.value.split("<").join("");
+
+        text.value = text.value.split("~").join("");
+
+        text.value = text.value.split("&").join("");
+
+        text.value = text.value.split("\\").join("");
+
+        text.value = text.value.split("_").join("");
+
+        text.value = text.value.split("%").join("");
+
+        text.value = text.value.split("\"").join("");
+
+    } 
+
+    function doCleanN(text) {
+
+        var list = "0123456789";
+
+        var data = text.value;
+
+        for (i = 0; i < data.length; i++) {
+
+            if (list.indexOf(data.substring(i, i + 1)) == -1) {
+
+                data = data.split(data.substring(i, i + 1)).join(""); 
+
+            }
+
+        }
+
+        text.value = data;
+
+    } 
+
+        function msg(txt) {
+            sweetAlert("...", txt, "info");
+        }
+        function doCleanNumber(textBox) {
+            var strVal;
+            var strVal1;
+            var strVal2;
+            var dot;
+            var i;
+            var strComma;
+            strVal2 = "";
+            strComma = "";
+            strVal1 = "";
+            if (isNaN(textBox.value.split(",").join(""))) {
+                textBox.value = parseFloat(textBox.value.split(",").join(""));
+            }
+            strVal = textBox.value;
+            dot = 0;
+            for (i = 0; i < strVal.length; i++) {
+                if (strVal.substring(i, i + 1).indexOf('.') > -1) {
+                    dot = dot + 1;
+                }
+                if ((strVal.substring(i, i + 1).indexOf('0') > -1) || (strVal.substring(i, i + 1).indexOf("1") > -1) || (strVal.substring(i, i + 1).indexOf("2") > -1) || (strVal.substring(i, i + 1).indexOf("3") > -1) || (strVal.substring(i, i + 1).indexOf("4") > -1) || (strVal.substring(i, i + 1).indexOf("5") > -1) || (strVal.substring(i, i + 1).indexOf("6") > -1) || (strVal.substring(i, i + 1).indexOf("7") > -1) || (strVal.substring(i, i + 1).indexOf("8") > -1) || (strVal.substring(i, i + 1).indexOf("9") > -1) || ((strVal.substring(i, i + 1).indexOf('.') > -1) && dot <= 1)) {
+                    strVal1 = strVal1 + strVal.substring(i, i + 1)
+                }
+            }
+            if ((strVal1.indexOf('.') == 0)) {
+                strVal1 = "0" + strVal1;
+            }
+            if (strVal1.indexOf('.') > 0) {
+                if (((strVal1.length) - (strVal1.indexOf('.') + 1)) > 2) {
+                    strVal1 = strVal1.substring(0, strVal1.indexOf('.') + 3);
+                }
+            } 
+            strVal = "";
+            if (strVal1.indexOf('.') != -1) {
+
+                strVal = strVal1.substring(strVal1.indexOf('.'), strVal1.indexOf('.') + 3);
+                strVal1 = strVal1.substring(0, strVal1.indexOf('.'));
+            } 
+            while (strVal1.length > 0) {
+                if (strVal1.length > 3) {
+                    strVal2 = strVal1.substring(strVal1.length - 3, strVal1.length) + strComma + strVal2;
+                    strVal1 = strVal1.substring(0, strVal1.length - 3);
+                    strComma = ",";
+                }
+                else {
+                    strVal2 = strVal1 + strComma + strVal2;
+                    strVal1 = "";
+                }
+            } 
+            if (strVal2.indexOf('.') > 0) {
+                strVal2 = strVal2.substring(0, strVal2.indexOf('.')); 
+            } 
+            textBox.value = strVal2 + strVal;
+        } 
+    function checkAndGo() { 
+
+        //doCleanN(document.getElementById("Lead_user"));
+        doClean(document.getElementById("Email")); 
+        doClean(document.getElementById("Last_name")); 
+        doClean(document.getElementById("First_name"));
+         if (document.getElementById("First_name").value.trim().length == 0) {
+             msg("Please enter first name");
+             return;
+         } 
+         if (document.getElementById("Last_name").value.trim().length == 0) {
+             msg("Please enter last name");
+             return;
+         } 
+         if (document.getElementById("Email").value.trim().length == 0) {
+             msg("Please enter email");
+             return;
+         } 
+         if (document.getElementById("Role").value.trim().length == 0) {
+             msg("Please select role");
+             return;
+         } 
+         //if (document.getElementById("Organization").value.trim().length == 0) {
+         //    msg("Please select Organization");
+         //    return;
+         //} 
+         //if (document.getElementById("Lead_user").value.trim().length == 0) {
+         //    msg("Please enter Lead User");
+         //    return;
+         //} 
+         //if (document.getElementById("Service_company").value.trim().length == 0) {
+         //    msg("Please select Service Company");
+         //    return;
+         //} 
+
+
+        document.getElementById("widgetu1290").submit(); 
+
+    } 
+
+</script> 
+
+<script> 
+
+    var statusMessage = "@ViewBag.status" || false; 
+
+    if (statusMessage != false && statusMessage.length > 0) {
+
+        msg(statusMessage); 
+
+    }
+
+</script> 

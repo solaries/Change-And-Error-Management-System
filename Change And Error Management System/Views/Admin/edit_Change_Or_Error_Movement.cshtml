@@ -1,0 +1,253 @@
+
+@{
+    List<sphinxsolaries.Caems.Data.Models.CAEMS_Change_Or_Error> data0  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_Change_Or_Error>)@ViewBag.data0;
+} 
+ @{
+ string sel = ""; 
+}  
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Edit Change Or Error Movement</h4>
+        <div class="form-validation">
+            <form id ="widgetu1290"class="form-valide" action="#"  method="post" enctype="multipart/form-data"> 
+                @Html.AntiForgeryToken()  
+                                                        
+                <input id="id" name="id" type="hidden" value="@ViewBag.id" />
+                <input id="oAction" name="oAction" type="hidden" value="@ViewBag.ActionValue" />
+                <input id="Change" name="Change" type="hidden" value="@ViewBag.Change" />
+                 
+
+
+                <div class="form-group row">
+                    <label class="col-lg-4 col-form-label">Project</label>
+                    <div class="col-lg-6">
+                        <input id="Project_Title" name="Project_Title" readonly   type="text" class="form-control"  
+                               value="@ViewBag.Project_Title" placeholder="Project" />  
+                    </div> 
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-lg-4 col-form-label">Change or Issue</label>
+                    <div class="col-lg-6">
+                        <input id="Change2" name="Change2" readonly type="text" class="form-control"   value="@ViewBag.Change2" placeholder="Change or Issue" />
+                    </div>
+                </div>
+
+                @if (ViewBag.ActionValue == "1")
+                {
+                    sel = "Being Processed";
+                }
+                @if (ViewBag.ActionValue == "2")
+                {
+                    sel = "Processed";
+                }
+                @*@if (ViewBag.ActionValue == "3")
+                {
+                    sel = "Processing Confirmed";
+                }*@
+
+@*
+        <div class="form-group row">
+                 <label class="col-lg-4 col-form-label">Change</label>
+                 <div class="col-lg-6">
+        <select class="form-control" id="Change" name="Change">
+        <option value="">Select Change</option>
+        @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_Change_Or_Error item in data0)
+        {
+            sel = "";
+            if (ViewBag.Change == item.Id.ToString())
+            {
+                 sel = " selected ";
+            }
+            <option  @sel  value="@item.Id"> @item.Project</option>
+        }
+    </select>
+         </div>
+
+     </div>
+        <div class="form-group row">
+                 <label class="col-lg-4 col-form-label">Action</label>
+                 <div class="col-lg-6">
+                         <input id="Action" name="Action" required   onkeyup="doCleanN(this)"    type="Number" class="form-control" maxlength="1"
+                              value="@ViewBag.Action"        placeholder="Action" />
+                         <input id="oAction" name="oAction" type="hidden"  value="@ViewBag.Action"     />
+
+         </div>
+
+     </div>
+
+        <div class="form-group row">
+                 <label class="col-lg-4 col-form-label">Action user type</label>
+                 <div class="col-lg-6">
+                         <input id="Action_user_type" name="Action_user_type" required   onkeyup="doCleanN(this)"    type="Number" class="form-control" maxlength="1"
+                              value="@ViewBag.Action_user_type"        placeholder="Action User Type" />
+                         <input id="oAction_user_type" name="oAction_user_type" type="hidden"  value="@ViewBag.Action_User_Type"     />
+
+         </div>
+
+     </div>
+
+        <div class="form-group row">
+                 <label class="col-lg-4 col-form-label">Action user</label>
+                 <div class="col-lg-6">
+                         <input id="Action_user" name="Action_user" required   onkeyup="doCleanN(this)"    type="Number" class="form-control" maxlength="20"
+                              value="@ViewBag.Action_user"        placeholder="Action User" />
+                         <input id="oAction_user" name="oAction_user" type="hidden"  value="@ViewBag.Action_User"     />
+
+         </div>
+
+     </div>*@
+                @if (sel.Trim().Length > 0)
+                {
+                    <div class="form-group row">
+                        <div class="col-lg-8 ml-auto">
+                            <button type="button" class="btn btn-primary" onclick="checkAndGo()">@sel</button>
+                        </div>
+                    </div> 
+                }
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<script> 
+
+    function doClean(text) { 
+
+        text.value = text.value.split("'").join("");
+
+        text.value = text.value.split(">").join("");
+
+        text.value = text.value.split("<").join("");
+
+        text.value = text.value.split("~").join("");
+
+        text.value = text.value.split("&").join("");
+
+        text.value = text.value.split("\\").join("");
+
+        text.value = text.value.split("_").join("");
+
+        text.value = text.value.split("%").join("");
+
+        text.value = text.value.split("\"").join("");
+
+    } 
+
+    function doCleanN(text) {
+
+        var list = "0123456789";
+
+        var data = text.value;
+
+        for (i = 0; i < data.length; i++) {
+
+            if (list.indexOf(data.substring(i, i + 1)) == -1) {
+
+                data = data.split(data.substring(i, i + 1)).join(""); 
+
+            }
+
+        }
+
+        text.value = data;
+
+    } 
+
+        function msg(txt) {
+            sweetAlert("...", txt, "info");
+        }
+        function doCleanNumber(textBox) {
+            var strVal;
+            var strVal1;
+            var strVal2;
+            var dot;
+            var i;
+            var strComma;
+            strVal2 = "";
+            strComma = "";
+            strVal1 = "";
+            if (isNaN(textBox.value.split(",").join(""))) {
+                textBox.value = parseFloat(textBox.value.split(",").join(""));
+            }
+            strVal = textBox.value;
+            dot = 0;
+            for (i = 0; i < strVal.length; i++) {
+                if (strVal.substring(i, i + 1).indexOf('.') > -1) {
+                    dot = dot + 1;
+                }
+                if ((strVal.substring(i, i + 1).indexOf('0') > -1) || (strVal.substring(i, i + 1).indexOf("1") > -1) || (strVal.substring(i, i + 1).indexOf("2") > -1) || (strVal.substring(i, i + 1).indexOf("3") > -1) || (strVal.substring(i, i + 1).indexOf("4") > -1) || (strVal.substring(i, i + 1).indexOf("5") > -1) || (strVal.substring(i, i + 1).indexOf("6") > -1) || (strVal.substring(i, i + 1).indexOf("7") > -1) || (strVal.substring(i, i + 1).indexOf("8") > -1) || (strVal.substring(i, i + 1).indexOf("9") > -1) || ((strVal.substring(i, i + 1).indexOf('.') > -1) && dot <= 1)) {
+                    strVal1 = strVal1 + strVal.substring(i, i + 1)
+                }
+            }
+            if ((strVal1.indexOf('.') == 0)) {
+                strVal1 = "0" + strVal1;
+            }
+            if (strVal1.indexOf('.') > 0) {
+                if (((strVal1.length) - (strVal1.indexOf('.') + 1)) > 2) {
+                    strVal1 = strVal1.substring(0, strVal1.indexOf('.') + 3);
+                }
+            } 
+            strVal = "";
+            if (strVal1.indexOf('.') != -1) {
+
+                strVal = strVal1.substring(strVal1.indexOf('.'), strVal1.indexOf('.') + 3);
+                strVal1 = strVal1.substring(0, strVal1.indexOf('.'));
+            } 
+            while (strVal1.length > 0) {
+                if (strVal1.length > 3) {
+                    strVal2 = strVal1.substring(strVal1.length - 3, strVal1.length) + strComma + strVal2;
+                    strVal1 = strVal1.substring(0, strVal1.length - 3);
+                    strComma = ",";
+                }
+                else {
+                    strVal2 = strVal1 + strComma + strVal2;
+                    strVal1 = "";
+                }
+            } 
+            if (strVal2.indexOf('.') > 0) {
+                strVal2 = strVal2.substring(0, strVal2.indexOf('.')); 
+            } 
+            textBox.value = strVal2 + strVal;
+        } 
+    function checkAndGo() { 
+
+         //       doCleanN(document.getElementById("Action_user"));        doCleanN(document.getElementById("Action_user_type"));        doCleanN(document.getElementById("Action"));         if (document.getElementById("Change").value.trim().length == 0) {
+         //    msg("Please select Change");
+         //    return;
+         //} 
+         //if (document.getElementById("Action").value.trim().length == 0) {
+         //    msg("Please enter Action");
+         //    return;
+         //} 
+         //if (document.getElementById("Action_user_type").value.trim().length == 0) {
+         //    msg("Please enter Action User Type");
+         //    return;
+         //} 
+         //if (document.getElementById("Action_user").value.trim().length == 0) {
+         //    msg("Please enter Action User");
+         //    return;
+         //} 
+
+
+        document.getElementById("widgetu1290").submit(); 
+
+    } 
+
+</script> 
+
+<script> 
+
+    var statusMessage = "@ViewBag.status" || false; 
+
+    if (statusMessage != false && statusMessage.length > 0) {
+
+        msg(statusMessage); 
+
+    }
+
+</script> 

@@ -1,0 +1,191 @@
+﻿
+<!DOCTYPE html>
+<html class="h-100" lang="en"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!--<link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">-->
+        <link href="~/assets/css/style.css" rel="stylesheet">
+        <link href="~/assets/plugins/sweetalert/css/sweetalert.css" rel="stylesheet"> 
+        <script src="~/assets/plugins/sweetalert/js/sweetalert.min.js"></script> 
+        <title>Change And Error Management System</title> 
+    </head> 
+    <body class="h-100"> 
+        <div class="login-form-bg h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100">
+                    <div class="col-xl-6">
+                        <div class="form-input-content">
+                            <div class="card login-form mb-0">
+                                <div class="card-body pt-5">
+                                    <h2 class="text-center">Login</h2>
+                                    <h6 class="text-center">Enter you email address and password</h6> 
+                                    <form class="mt-5 mb-5 login-input"  id="widgetu12902" method="post" enctype="multipart/form-data">
+                                        @Html.AntiForgeryToken() 
+                                        <div class="form-group">
+                                            <input type="email" onfocusout="check()" placeholder="Email" id="email" onkeyup="doClean(this)" name="email" value="@ViewBag.email" maxlength="50" class="form-control">
+                                        </div>
+
+
+
+                                        <div class="form-group" id="sc" style="display:none">
+                                            <select class="form-control" id="Service_company" name="Service_company">
+                                                <option value="">Select Service company - Organization</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password" id="password" onkeyup="doClean(this)" name="password" value="" maxlength="50">
+                                        </div> 
+                                        <div class="form-group"> 
+                                            <button type="button" onclick="forgotIt()" class="btn mb-1  btn-primary">Forgot Password?</button>
+                                            <button type="button" onclick="checkAndGo()" class="btn mb-1 btn-primary">Login</button>
+                                        </div>  
+                                            <input type="hidden" id="forgot" name="forgot"> 
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <script src="~/assets/plugins/common/common.min.js"></script>
+        <script src="~/assets/js/custom.min.js"></script>
+        <script src="~/assets/js/settings.js"></script>
+        <script src="~/assets/js/gleek.js"></script>
+        <script src="~/assets/js/styleSwitcher.js"></script> 
+        <script>
+            var checking = false;
+            var attemptLogin = false;
+            function msg(txt) {
+                sweetAlert("...", txt, "info");
+            }
+
+
+
+
+
+
+            function check() { 
+                var sc = document.getElementById("sc");
+                sc.style.display = "none";
+                checking = true; 
+                var Service_company = document.getElementById("Service_company");
+                for (var i = Service_company.length - 1 ; i >= 0; i--) {
+                    Service_company.remove(i);
+                } 
+                var email = document.getElementById("email").value.trim();
+                if (email.length > 0) { 
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) { 
+                            checking = false;
+                            var data = xhttp.responseText;
+                            if (data.trim().length > 2) {
+                                var dataList = JSON.parse(data); 
+                                if (dataList.length > 1) {
+                                    var option = document.createElement("option");
+                                    option.text = "Select Service company - Organization";
+                                    Service_company.add(option);
+                                    for (var i = 0; i < dataList.length; i++) { 
+                                        var option = document.createElement("option");
+                                        option.value = dataList[i].Service_company2[0].Id + "-" + dataList[i].Id;
+                                        option.text = dataList[i].Service_company2[0].Company + " - " + dataList[i].Name;
+                                        Service_company.add(option);
+
+
+                                        /*
+                                        
+{"Id":3,"Name":"Client of gmail email address","Service_company":6,"Service_company2":[{"Id":6,"Company":"Self"}]}                                        
+                                        
+                                        */
+
+                                    }
+                                    sc.style.display = "block";
+                                    msg("Email validation complete, please continue login");
+                                }
+                            }
+ 
+                        }
+                    };
+                    var strLocation = location.toString().toLowerCase(); 
+                    xhttp.open("GET", strLocation.substring(0, strLocation.toLowerCase().indexOf("user")) + "/user/view_it_Service_Company_no_secure2?email=" + email, true);
+                    xhttp.send();
+                }
+
+
+            }
+
+
+
+
+            function doClean(text) { 
+              text.value = text.value.split("'").join("");
+
+              text.value = text.value.split(">").join("");
+
+              text.value = text.value.split("<").join("");
+
+              text.value = text.value.split("~").join("");
+
+              text.value = text.value.split("&").join("");
+
+              text.value = text.value.split("\\").join("");
+
+              text.value = text.value.split("_").join("");
+
+              text.value = text.value.split("%").join("");
+
+              text.value = text.value.split("\"").join("");
+
+            } 
+            function forgotIt() { 
+                doClean(document.getElementById("email")); 
+                doClean(document.getElementById("password")); 
+                if (document.getElementById("email").value.trim().length == 0) { 
+                    msg("Please enter email"); 
+                    return; 
+                }
+                if (checking) {
+                    attemptLogin = true;
+                    msg("Email validation ongoing, please wait for message notifying you if it's completion, then continue login.");
+                    return;
+                }
+                if (document.getElementById("sc").style.display != "none" && document.getElementById("Service_company").value == "Select Service company - Organization") {
+                    alert("Please Select Service company - Organization");
+                    return;
+                }
+                document.getElementById("forgot").value = "xxs"; 
+                document.getElementById("widgetu12902").submit(); 
+            } 
+            function checkAndGo() { 
+                doClean(document.getElementById("email")); 
+                doClean(document.getElementById("password")); 
+                if (document.getElementById("email").value.trim().length == 0) { 
+                    msg("Please enter email"); 
+                    return; 
+                } 
+                if (document.getElementById("password").value.trim().length == 0) { 
+                    msg("Please enter password"); 
+                    return; 
+                }
+                if (checking) {
+                    attemptLogin = true;
+                    msg("Email validation ongoing, please wait for message notifying you if it's completion, then continue login.");
+                    return;
+                }
+                if (document.getElementById("sc").style.display != "none" && document.getElementById("Service_company").value == "Select Service company - Organization") {
+                    alert("Please Select Service company - Organization");
+                    return;
+                }
+                document.getElementById("widgetu12902").submit(); 
+            } 
+            var statusMessage = "@ViewBag.status" || false; 
+            if (statusMessage != false && statusMessage.length > 0) { 
+                msg(statusMessage); 
+            } 
+        </script> 
+    </body> 
+</html>

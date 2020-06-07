@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html class="h-100" lang="en"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <!--<link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">-->
+        <link href="~/assets/css/style.css" rel="stylesheet">
+        <link href="~/assets/plugins/sweetalert/css/sweetalert.css" rel="stylesheet"> 
+        <script src="~/assets/plugins/sweetalert/js/sweetalert.min.js"></script> 
+        <title>Change And Error Management System</title> 
+    </head> 
+    <body class="h-100"> 
+        <div class="login-form-bg h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100">
+                    <div class="col-xl-6">
+                        <div class="form-input-content">
+                            <div class="card login-form mb-0">
+                                <div class="card-body pt-5">
+                                    <h2 class="text-center">Login</h2>
+                                    <h6 class="text-center">Enter you email address and password</h6> 
+                                    <form class="mt-5 mb-5 login-input"  id="widgetu12902" method="post" enctype="multipart/form-data">
+                                        @Html.AntiForgeryToken() 
+                                        <div class="form-group">
+                                            <input type="email" placeholder="Email" id="email" onkeyup="doClean(this)" name="email" value="@ViewBag.email" maxlength="50" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password" id="password" onkeyup="doClean(this)" name="password" value="" maxlength="50">
+                                        </div> 
+                                        <div class="form-group"> 
+                                            <button type="button" onclick="forgotIt()" class="btn mb-1  btn-primary">Forgot Password?</button>
+                                            <button type="button" onclick="checkAndGo()" class="btn mb-1 btn-primary">Login</button>
+                                        </div>  
+                                            <input type="hidden" id="forgot" name="forgot"> 
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <script src="~/assets/plugins/common/common.min.js"></script>
+        <script src="~/assets/js/custom.min.js"></script>
+        <script src="~/assets/js/settings.js"></script>
+        <script src="~/assets/js/gleek.js"></script>
+        <script src="~/assets/js/styleSwitcher.js"></script> 
+        <script>
+            function msg(txt) {
+                sweetAlert("...", txt, "info");
+            }
+            function doClean(text) { 
+              text.value = text.value.split("'").join("");
+
+              text.value = text.value.split(">").join("");
+
+              text.value = text.value.split("<").join("");
+
+              text.value = text.value.split("~").join("");
+
+              text.value = text.value.split("&").join("");
+
+              text.value = text.value.split("\\").join("");
+
+              text.value = text.value.split("_").join("");
+
+              text.value = text.value.split("%").join("");
+
+              text.value = text.value.split("\"").join("");
+
+            } 
+            function forgotIt() { 
+                doClean(document.getElementById("email")); 
+                doClean(document.getElementById("password")); 
+                if (document.getElementById("email").value.trim().length == 0) { 
+                    msg("Please enter email"); 
+                    return; 
+                } 
+                document.getElementById("forgot").value = "xxs"; 
+                document.getElementById("widgetu12902").submit(); 
+            } 
+            function checkAndGo() { 
+                doClean(document.getElementById("email")); 
+                doClean(document.getElementById("password")); 
+                if (document.getElementById("email").value.trim().length == 0) { 
+                    msg("Please enter email"); 
+                    return; 
+                } 
+                if (document.getElementById("password").value.trim().length == 0) { 
+                    msg("Please enter password"); 
+                    return; 
+                } 
+                document.getElementById("widgetu12902").submit(); 
+            } 
+            var statusMessage = "@ViewBag.status" || false; 
+            if (statusMessage != false && statusMessage.length > 0) { 
+                msg(statusMessage); 
+            } 
+        </script> 
+    </body> 
+</html>

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en"> 
+@{
+    string strRightList = Session["strRightList"].ToString();
+}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Auto Code [Change And Error Management System] - www.solarinolakunle.com</title> 
+        <link href="~/assets/css/style.css" rel="stylesheet">
+        <link href="~/assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet"> 
+        <link href="~/assets/plugins/sweetalert/css/sweetalert.css" rel="stylesheet"> 
+        <script src="~/assets/plugins/sweetalert/js/sweetalert.min.js"></script> 
+    </head> 
+    <body>
+        <div id="preloader">
+            <div class="loader">
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+                </svg>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <div class="nav-header">
+                <div class="brand-logo">
+                    <a href="#">
+                        <b class="logo-abbr"></b>
+                        <span class="logo-compact"></span>
+                        <span class="brand-title">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="header">
+                <div class="header-content clearfix"> 
+                    <div class="nav-control">
+                        <div class="hamburger">
+                            <span class="toggle-icon"><i class="icon-menu"></i></span>
+                        </div>
+                    </div>
+                    <div class="header-left"> 
+                    </div> 
+                </div>
+            </div> 
+            <div class="nk-sidebar">
+                <div class="nk-nav-scroll">
+                    <ul class="metismenu" id="menu">
+                    @if (strRightList.IndexOf("sphinxcol" + "new_User_Roles" + "sphinxcol") > -1
+                                || strRightList.IndexOf("sphinxcol" + "view_User_Roles" + "sphinxcol") > -1)
+                    {
+                        <li>
+                            <a href="javascript:void(0);" class="has-arrow" aria-expanded="false"><i class="icon-notebook menu-icon"></i><span class="nav-text">User roles</span></a>
+                            <ul aria-expanded="false">
+                                @if (strRightList.IndexOf("sphinxcol" + "new_User_Roles" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/new_User_Roles/")">New</a></li>
+                                }
+                                @if (strRightList.IndexOf("sphinxcol" + "view_User_Roles" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/view_User_Roles/")">View</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }    
+                    @if (strRightList.IndexOf("sphinxcol" + "new_Users" + "sphinxcol") > -1
+                                || strRightList.IndexOf("sphinxcol" + "view_Users" + "sphinxcol") > -1)
+                    {
+                        <li>
+                            <a href="javascript:void(0);" class="has-arrow" aria-expanded="false"><i class="icon-notebook menu-icon"></i><span class="nav-text">Users</span></a>
+                            <ul aria-expanded="false">
+                                @if (strRightList.IndexOf("sphinxcol" + "new_Users" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/new_Users/")">New</a></li>
+                                }
+                                @if (strRightList.IndexOf("sphinxcol" + "view_Users" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/view_Users/")">View</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (strRightList.IndexOf("sphinxcol" + "new_Change_Or_Errors" + "sphinxcol") > -1
+                                || strRightList.IndexOf("sphinxcol" + "view_Change_Or_Errors" + "sphinxcol") > -1)
+                    {
+                        <li>
+                            <a href="javascript:void(0);" class="has-arrow" aria-expanded="false"><i class="icon-notebook menu-icon"></i><span class="nav-text">Change or errors</span></a>
+                            <ul aria-expanded="false">
+                                @if (strRightList.IndexOf("sphinxcol" + "new_Change_Or_Errors" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/new_Change_Or_Errors/")">New</a></li>
+                                }
+                                @if (strRightList.IndexOf("sphinxcol" + "view_Change_Or_Errors" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/view_Change_Or_Errors/")">View</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (strRightList.IndexOf("sphinxcol" + "view_Change_Or_Error_Movement" + "sphinxcol") > -1)
+                    {
+                        <li>
+                            <a href="javascript:void(0);" class="has-arrow" aria-expanded="false"><i class="icon-notebook menu-icon"></i><span class="nav-text">Change or error movement</span></a>
+                            <ul aria-expanded="false">
+                                @*<li><a href="@Url.Content("~/User/new_Change_Or_Error_Movement/")">New</a></li>*@
+                                @if (strRightList.IndexOf("sphinxcol" + "view_Change_Or_Error_Movement" + "sphinxcol") > -1)
+                                {
+                                    <li><a href="@Url.Content("~/User/view_Change_Or_Error_Movement/")">View</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                            @*<li>
+                            <a href="javascript:void(0);" class="has-arrow" aria-expanded="false"   ><i class="icon-notebook menu-icon"></i><span   class="nav-text" >User rights</span></a>
+                            <ul aria-expanded="false">
+                                <li><a href="@Url.Content("~/User/new_User_Rights/")">New</a></li>
+                                <li><a href="@Url.Content("~/User/view_User_Rights/")">View</a></li>
+                            </ul>
+                        </li>*@ 
+
+                        <li>
+                            <a  href="@Url.Content("~/User/Change_Password")" >
+                                <i class="icon-grid menu-icon"></i><span class="nav-text">Change password</span>
+                            </a> 
+                        </li>
+                        <li>
+                            <a  href="@Url.Content("~/User/login")" >
+                                <i class="icon-logout"></i><span class="nav-text">Logout</span>
+                            </a> 
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <div class="content-body"> 
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">  
+                               @RenderBody() 
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+            <div class="footer">
+                <div class="copyright"> 
+                </div>
+            </div> 
+        </div> 
+        <script src="~/assets/plugins/common/common.min.js"></script>
+        <script src="~/assets/js/custom.min.js"></script>
+        <script src="~/assets/js/settings.js"></script>
+        <script src="~/assets/js/gleek.js"></script>
+        <script src="~/assets/js/styleSwitcher.js"></script> 
+        <script src="~/assets/plugins/validation/jquery.validate.min.js"></script>
+        <script src="~/assets/plugins/tables/js/jquery.dataTables.min.js"></script> 
+        <script src="~/assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script> 
+        <script src="~/assets/plugins/validation/jquery.validate-init.js"></script> 
+        <script src="~/assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script> 
+    </body> 
+</html>  

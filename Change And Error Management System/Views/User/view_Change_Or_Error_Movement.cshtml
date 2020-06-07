@@ -1,0 +1,74 @@
+@model IEnumerable<sphinxsolaries.Caems.Models.CAEMS_Change_Or_Error_Movement2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">View Change Or Error Movement</h4> 
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered zero-configuration">
+                <thead>
+                    <tr>
+                        <th>   </th>
+                        <th>Project</th>
+                        <th>Change</th>
+                        <th>Action</th>
+                        <th>Action User Type</th>
+                        <th>Action User</th>
+                        <th>Movement Date</th>
+ 
+                    </tr> 
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>         
+                            <td>
+                                @Html.ActionLink("Select", "edit_Change_Or_Error_Movement", new
+                           {
+                               id = item.Id,
+
+                               Project_Title = item.Project_Title,
+                               Change2 = item.Change2,
+                               Action_User = item.Action_user
+                            ,
+                               Action_User_Type = item.Action_user_type
+                            ,
+                               ActionValue = item.Action
+                            ,
+                               Change = item.Change
+                           })
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Project_Title)  </td>
+                        <td>@Html.DisplayFor(modelItem => item.Change2)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Action2)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Action_user_type2)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Action_user2)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Move_Date)</td>
+                        </tr>
+                    }
+                    
+                </tbody>
+                <tfoot>
+                    <tr>   
+                        <th>   </th>
+                        <th>Project</th>
+                        <th>Change</th>
+                        <th>Action</th>
+                        <th>Action User Type</th>
+                        <th>Action User</th>
+                        <th>Movement Date</th>
+ 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div> 
+<script> 
+    function msg(txt) {
+        sweetAlert("...", txt, "info");
+    }
+    var statusMessage = "@ViewBag.status" || false; 
+    if (statusMessage != false && statusMessage.length > 0) {
+        msg(statusMessage); 
+    }
+</script>

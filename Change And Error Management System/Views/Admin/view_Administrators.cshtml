@@ -1,0 +1,77 @@
+@model IEnumerable<sphinxsolaries.Caems.Models.CAEMS_authenticate_Admin2>
+ 
+ 
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">View Administrators</h4> 
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered zero-configuration">
+                <thead>
+                    <tr>
+                        <th>   </th> 
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>email</th>
+                        <th>role</th>
+                        @*<th>password</th>
+    <th>password2</th>
+    <th>Service Company</th>
+    <th>LeadAdmin</th>*@
+ 
+                    </tr> 
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>                            
+                            <td>@Html.ActionLink("Select", "edit_Administrators", new
+                           {
+                            id=item.Id, 
+                            LeadAdmin = item.Leadadmin
+                            ,Service_Company = item.Service_company
+                            ,password2 = item.Password2
+                            ,password = item.Password
+                            ,role = item.Role
+                            ,email = item.Email
+                            ,last_name = item.Last_name
+                            ,first_name = item.First_name
+                               })</td> 
+                           <td>@Html.DisplayFor(modelItem => item.First_name)</td>
+                           <td>@Html.DisplayFor(modelItem => item.Last_name)</td>
+                           <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                           <td>@Html.DisplayFor(modelItem => item.Role2[0].Rolename)</td>
+                           @*<td>@Html.DisplayFor(modelItem => item.Password)</td>
+    <td>@Html.DisplayFor(modelItem => item.Password2)</td>
+    <td>@Html.DisplayFor(modelItem => item.Service_company)</td>
+    <td>@Html.DisplayFor(modelItem => item.Leadadmin)</td>*@
+                        </tr>
+                    }
+                    
+                </tbody>
+                <tfoot>
+                    <tr>                        
+                        <th>   </th> 
+                        <th>first name</th>
+                        <th>last name</th>
+                        <th>email</th>
+                        <th>role</th>
+                        @*<th>password</th>
+    <th>password2</th>
+    <th>Service Company</th>
+    <th>LeadAdmin</th>*@
+ 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div> 
+<script> 
+    function msg(txt) {
+        sweetAlert("...", txt, "info");
+    }
+    var statusMessage = "@ViewBag.status" || false; 
+    if (statusMessage != false && statusMessage.length > 0) {
+        msg(statusMessage); 
+    }
+</script>

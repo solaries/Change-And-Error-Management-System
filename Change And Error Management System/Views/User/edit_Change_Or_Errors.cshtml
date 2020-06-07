@@ -1,0 +1,257 @@
+
+@{
+    List<sphinxsolaries.Caems.Data.Models.CAEMS_Project> data0  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_Project>)@ViewBag.data0;
+} 
+ @{
+ List<sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company> data1  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company>)@ViewBag.data1;
+} 
+ @{
+ List<sphinxsolaries.Caems.Data.Models.CAEMS_authenticate_Admin> data2  =  ( List<sphinxsolaries.Caems.Data.Models.CAEMS_authenticate_Admin>)@ViewBag.data2;
+} 
+ @{
+ string sel = ""; 
+}  
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Edit Change Or Errors</h4>
+        <div class="form-validation">
+            <form id ="widgetu1290"class="form-valide" action="#"  method="post" enctype="multipart/form-data"> 
+                @Html.AntiForgeryToken()  
+                                                        <input id="id" name="id"  type="hidden" value="@ViewBag.id" />
+
+                   <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Project</label>
+                            <div class="col-lg-6">
+                   <select class="form-control" id="Project" name="Project">
+                   <option value="">Select Project</option>
+                   @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_Project item in data0)
+                   {
+                       sel = "";
+                       if (ViewBag.Project == item.Id.ToString())
+                       {
+                            sel = " selected ";
+                       }
+                       <option  @sel  value="@item.Id"> @item.Project_title</option>
+                   }
+               </select>
+                    </div> 
+                </div>
+
+
+
+
+
+
+                   @*<div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Service company</label>
+                            <div class="col-lg-6">
+                   <select class="form-control" id="Service_company" name="Service_company">
+                   <option value="">Select Service company</option>
+                   @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_Service_Company item in data1)
+                   {
+                       sel = "";
+                       if (ViewBag.Service_Company == item.Id.ToString())
+                       {
+                            sel = " selected ";
+                       }
+                       <option  @sel  value="@item.Id"> @item.Company</option>
+                   }
+               </select>
+                    </div>
+
+                </div>
+
+                   <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">User</label>
+                            <div class="col-lg-6">
+                   <select class="form-control" id="User" name="User">
+                   <option value="">Select User</option>
+                   @foreach (sphinxsolaries.Caems.Data.Models.CAEMS_authenticate_Admin item in data2)
+                   {
+                       sel = "";
+                       if (ViewBag.User == item.Id.ToString())
+                       {
+                            sel = " selected ";
+                       }
+                       <option  @sel  value="@item.Id"> @item.First_name</option>
+                   }
+               </select>
+                    </div>
+
+                </div>*@
+
+                   <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Change or error detail</label>
+                            <div class="col-lg-6">
+                           <input    id="Change_or_error_detail" name="Change_or_error_detail" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="200"
+                               value="@ViewBag.Change_or_error_detail"        placeholder="Change Or Error Detail" />
+                           <input id="oChange_or_error_detail" name="oChange_or_error_detail" type="hidden"  value="@ViewBag.Change_Or_Error_Detail"     />
+
+                    </div>
+
+                </div>
+
+                   @*<div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Log date</label>
+                            <div class="col-lg-6">
+                   <input id="Log_date" name="Log_date" required   type="datetime" class="form-control" maxlength="14"
+                       value="@ViewBag.Log_date"    placeholder="Log Date" />
+                           <input id="oLog_date" name="oLog_date" type="hidden"  value="@ViewBag.Log_Date"     />
+
+                    </div>
+
+                </div>*@
+
+                <div class="form-group row">
+                    <div class="col-lg-8 ml-auto">
+                        <button type="button" class="btn btn-primary" onclick="checkAndGo()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script> 
+
+    function doClean(text) { 
+
+        text.value = text.value.split("'").join("");
+
+        text.value = text.value.split(">").join("");
+
+        text.value = text.value.split("<").join("");
+
+        text.value = text.value.split("~").join("");
+
+        text.value = text.value.split("&").join("");
+
+        text.value = text.value.split("\\").join("");
+
+        text.value = text.value.split("_").join("");
+
+        text.value = text.value.split("%").join("");
+
+        text.value = text.value.split("\"").join("");
+
+    } 
+
+    function doCleanN(text) {
+
+        var list = "0123456789";
+
+        var data = text.value;
+
+        for (i = 0; i < data.length; i++) {
+
+            if (list.indexOf(data.substring(i, i + 1)) == -1) {
+
+                data = data.split(data.substring(i, i + 1)).join(""); 
+
+            }
+
+        }
+
+        text.value = data;
+
+    } 
+
+        function msg(txt) {
+            sweetAlert("...", txt, "info");
+        }
+        function doCleanNumber(textBox) {
+            var strVal;
+            var strVal1;
+            var strVal2;
+            var dot;
+            var i;
+            var strComma;
+            strVal2 = "";
+            strComma = "";
+            strVal1 = "";
+            if (isNaN(textBox.value.split(",").join(""))) {
+                textBox.value = parseFloat(textBox.value.split(",").join(""));
+            }
+            strVal = textBox.value;
+            dot = 0;
+            for (i = 0; i < strVal.length; i++) {
+                if (strVal.substring(i, i + 1).indexOf('.') > -1) {
+                    dot = dot + 1;
+                }
+                if ((strVal.substring(i, i + 1).indexOf('0') > -1) || (strVal.substring(i, i + 1).indexOf("1") > -1) || (strVal.substring(i, i + 1).indexOf("2") > -1) || (strVal.substring(i, i + 1).indexOf("3") > -1) || (strVal.substring(i, i + 1).indexOf("4") > -1) || (strVal.substring(i, i + 1).indexOf("5") > -1) || (strVal.substring(i, i + 1).indexOf("6") > -1) || (strVal.substring(i, i + 1).indexOf("7") > -1) || (strVal.substring(i, i + 1).indexOf("8") > -1) || (strVal.substring(i, i + 1).indexOf("9") > -1) || ((strVal.substring(i, i + 1).indexOf('.') > -1) && dot <= 1)) {
+                    strVal1 = strVal1 + strVal.substring(i, i + 1)
+                }
+            }
+            if ((strVal1.indexOf('.') == 0)) {
+                strVal1 = "0" + strVal1;
+            }
+            if (strVal1.indexOf('.') > 0) {
+                if (((strVal1.length) - (strVal1.indexOf('.') + 1)) > 2) {
+                    strVal1 = strVal1.substring(0, strVal1.indexOf('.') + 3);
+                }
+            } 
+            strVal = "";
+            if (strVal1.indexOf('.') != -1) {
+
+                strVal = strVal1.substring(strVal1.indexOf('.'), strVal1.indexOf('.') + 3);
+                strVal1 = strVal1.substring(0, strVal1.indexOf('.'));
+            } 
+            while (strVal1.length > 0) {
+                if (strVal1.length > 3) {
+                    strVal2 = strVal1.substring(strVal1.length - 3, strVal1.length) + strComma + strVal2;
+                    strVal1 = strVal1.substring(0, strVal1.length - 3);
+                    strComma = ",";
+                }
+                else {
+                    strVal2 = strVal1 + strComma + strVal2;
+                    strVal1 = "";
+                }
+            } 
+            if (strVal2.indexOf('.') > 0) {
+                strVal2 = strVal2.substring(0, strVal2.indexOf('.')); 
+            } 
+            textBox.value = strVal2 + strVal;
+        } 
+    function checkAndGo() { 
+
+        
+        doClean(document.getElementById("Change_or_error_detail"));
+         if (document.getElementById("Project").value.trim().length == 0) {
+             msg("Please select Project");
+             return;
+         } 
+         //if (document.getElementById("Service_company").value.trim().length == 0) {
+         //    msg("Please select Service Company");
+         //    return;
+         //} 
+         //if (document.getElementById("User").value.trim().length == 0) {
+         //    msg("Please select User");
+         //    return;
+         //} 
+         if (document.getElementById("Change_or_error_detail").value.trim().length == 0) {
+             msg("Please enter Change Or Error Detail");
+             return;
+         } 
+         //if (document.getElementById("Log_date").value.trim().length == 0) {
+         //    msg("Please enter Log Date");
+         //    return;
+         //} 
+
+
+        document.getElementById("widgetu1290").submit(); 
+
+    } 
+
+</script> 
+
+<script> 
+
+    var statusMessage = "@ViewBag.status" || false; 
+
+    if (statusMessage != false && statusMessage.length > 0) {
+
+        msg(statusMessage); 
+
+    }
+
+</script> 

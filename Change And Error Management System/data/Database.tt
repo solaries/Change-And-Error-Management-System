@@ -1,0 +1,51 @@
+<#@ include file="Database.Core.ttinclude" #><#
+	// Settings 
+    ConnectionStringName = "cordros";			// Uses last connection string in config if not specified
+    Namespace = "SphinxSolaries.cordos.Data.Models";
+    RepoName = "cordros";
+    GenerateOperations = true;  
+	GeneratePocos = true; 
+	GenerateCommon = true;  
+	ClassPrefix = ""; 
+	ClassSuffix = "";   
+	TrackModifiedColumns = true;
+	CammelCase = true; 
+
+    // Read schema  
+	var tables = LoadTables();  
+	 
+/*
+	// Tweak Schema
+	tables["tablename"].Ignore = true;							// To ignore a table
+	tables["tablename"].ClassName = "newname";					// To change the class name of a table
+	tables["tablename"]["columnname"].Ignore = true;			// To ignore a column
+	tables["tablename"]["columnname"].PropertyName="newname";	// To change the property name of a column
+	tables["tablename"]["columnname"].PropertyType="bool";		// To change the property type of a column
+*/
+
+	foreach(var t in tables)
+	{
+		t.ClassName = t.ClassName.Replace("CCPortal","").Replace("CCPORTAL","").Replace("ccportal","").Replace("Ccportal","");
+		foreach(var col in t.Columns)
+		{
+			
+			string[] atoms = col.Name.Split('_');
+			System.Text.StringBuilder camel = new System.Text.StringBuilder();
+			foreach(string atom in atoms) 
+			{
+				if (atom.Length > 0) camel.Append(atom.Substring(0, 1).ToUpper());
+				if (atom.Length > 1) camel.Append(atom.Substring(1).ToLower());
+			}
+			
+			col.PropertyName = camel.ToString(); 
+			//if (col.PropertyName.StartsWith("Is")) col.PropertyType = "bool";
+		}
+	}
+	
+	
+	
+	// Generate output
+	if (tables.Count>0)
+	{
+#><#@ include file="Database.Generator.ttinclude" #><# 
+	} #>
