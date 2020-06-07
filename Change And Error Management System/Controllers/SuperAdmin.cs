@@ -116,6 +116,8 @@ namespace sphinxsolaries.Caems.Controllers
             if (String.IsNullOrEmpty(forgot))
             {
                 ActionResult xx = authenticate( password:  Password, email: Email ); 
+                //return Content(Password + " plus " + Email);
+
                 response = ( List<CAEMS_authenticate_SuperAdmin>)Session["response"];
                 if(response !=null ){
                     if(response.Count > 0){
@@ -170,7 +172,7 @@ namespace sphinxsolaries.Caems.Controllers
             password =  Audit.GetEncodedHash(password, "doing it well") ;
             response =  centralCalls.get_authenticate_SuperAdmin(" where replace(password, '@','#')  = '" + password.Replace("@", "#") + "' and replace(email, '@','#') = '" + email.Replace("@", "#") + "' ");
             Session["response"]  = response;
-            return Content(string.Join( "sphinxsplit",  response ));
+            return Content(JsonConvert.SerializeObject((List<CAEMS_authenticate_SuperAdmin>)response));
         }
 
         [AllowAnonymous]
@@ -189,8 +191,8 @@ namespace sphinxsolaries.Caems.Controllers
                         Audit.SendMail(Email, mailSubject, mailBody, "add profile"); 
                 } 
             } 
-            Session["response"]  = response; 
-            return Content(  string.Join( "sphinxsplit",  response )  );
+            Session["response"]  = response;
+            return Content(JsonConvert.SerializeObject(response));
         }   
 
 

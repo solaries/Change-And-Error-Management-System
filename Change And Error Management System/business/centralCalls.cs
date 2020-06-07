@@ -38,14 +38,15 @@ namespace sphinxsolaries.Caems.BusinessLogic
                  data += ",Last_name : " + Last_name;
                 cust.Email =  Email;
                  data += ",Email : " + Email;
-                cust.Role =  long.Parse( Role == null ? "1" : Role)  ;
-                 data += ",Role : " + Role;
+                cust.Role =  long.Parse( Role == null  || Role.Trim().Length ==0? "1" : Role)  ;
+                data += ",Role : " + Role + " ___ " + cust.Role.ToString();
 
                  if (Leadadmin == "1")
                  {
-                     add_new_Service_Company(Service_company);
+                     response = add_new_Service_Company(Service_company);
                      List<CAEMS_Service_Company> cscList = get_Service_Company(" where company = '" + Service_company  +"' " );
                      cust.Service_company = cscList[0].Id; // long.Parse( Service_company == null ? "1" : Service_company)  ; 
+                     response = "";
                  }
                  else
                  {
@@ -72,7 +73,7 @@ namespace sphinxsolaries.Caems.BusinessLogic
             }
             catch (Exception d)
             {
-                response = "Error adding authenticate_Admin";
+                response = "Error adding authenticate_Admin";// +d.Message + "[" + d.StackTrace + "]";
                 Audit.InsertAudit((int)eventzz.ERROR_AUTHENTICATE_ADMIN_ADD, d.Message + "  " + (d.InnerException != null ? d.InnerException.Message : "") + " (  " + data + " ) ", getVal(), true); 
             }
             return response;
@@ -1339,6 +1340,7 @@ namespace sphinxsolaries.Caems.BusinessLogic
             }
             catch (Exception d)
             {
+                throw d;
                 response = "Error adding Service_Company";
                 Audit.InsertAudit((int)eventzz.ERROR_SERVICE_COMPANY_ADD, d.Message + "  " + (d.InnerException != null ? d.InnerException.Message : "") + " (  " + data + " ) ", getVal(), true); 
             }

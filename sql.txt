@@ -92,11 +92,15 @@ CREATE TABLE `CAEMS_authenticate_Admin` (
 `Service_Company`  BIGINT(20)   NOT NULL    ,
 `LeadAdmin`   INT(11)    NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_1` FOREIGN KEY (`role`) REFERENCES `Caems_role_Admin` (`id`) , 
-	CONSTRAINT `FK1_2` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	CONSTRAINT `FK1_1` FOREIGN KEY (`role`) REFERENCES `CAEMS_role_Admin` (`id`) , 
+	CONSTRAINT `FK1_2` FOREIGN KEY (`Service_Company`) REFERENCES `CAEMS_Service_Company` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
+
+
+
+ 
 
 
 CREATE TABLE `CAEMS_Client` ( 
@@ -104,10 +108,11 @@ CREATE TABLE `CAEMS_Client` (
 `Name`  VARCHAR(60)   NOT NULL    ,
 `Service_Company`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_8` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	CONSTRAINT `FK1_8` FOREIGN KEY (`Service_Company`) REFERENCES `CAEMS_Service_Company` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
-	ENGINE=InnoDB;
+	ENGINE=InnoDB;  
+
 
 
 CREATE TABLE `CAEMS_authenticate_User` ( 
@@ -122,12 +127,16 @@ CREATE TABLE `CAEMS_authenticate_User` (
 `Lead_User`   INT(11)    NOT NULL    ,
 `Service_Company`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_3` FOREIGN KEY (`role`) REFERENCES `Caems_role_User` (`id`) , 
-	CONSTRAINT `FK1_4` FOREIGN KEY (`Organization`) REFERENCES `Caems_Client` (`id`) , 
-	CONSTRAINT `FK1_5` FOREIGN KEY (`Service_Company`) REFERENCES `Caems_Service_Company` (`id`) 
+	CONSTRAINT `FK1_3` FOREIGN KEY (`role`) REFERENCES `CAEMS_role_User` (`id`) , 
+	CONSTRAINT `FK1_4` FOREIGN KEY (`Organization`) REFERENCES `CAEMS_Client` (`id`) , 
+	CONSTRAINT `FK1_5` FOREIGN KEY (`Service_Company`) REFERENCES `CAEMS_Service_Company` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
+
+
+
+ 
 
 
 CREATE TABLE `CAEMS_Project` ( 
@@ -135,10 +144,11 @@ CREATE TABLE `CAEMS_Project` (
 `Project_Title`  VARCHAR(60)   NOT NULL    ,
 `Organization`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_9` FOREIGN KEY (`Organization`) REFERENCES `Caems_Client` (`id`) 
+	CONSTRAINT `FK1_9` FOREIGN KEY (`Organization`) REFERENCES `CAEMS_Client` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
-	ENGINE=InnoDB;
+	ENGINE=InnoDB;  
+
 
 
 CREATE TABLE `CAEMS_Change_Or_Error` ( 
@@ -149,7 +159,7 @@ CREATE TABLE `CAEMS_Change_Or_Error` (
 `Initiating_User_Type`   INT(11)    NOT NULL    ,
 `User`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_6` FOREIGN KEY (`Project`) REFERENCES `Caems_Project` (`id`) 
+	CONSTRAINT `FK1_6` FOREIGN KEY (`Project`) REFERENCES `CAEMS_Project` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
@@ -163,7 +173,7 @@ CREATE TABLE `CAEMS_Change_Or_Error_Movement` (
 `Action_User`  BIGINT(20)   NOT NULL    ,
 `Move_Date`  DATETIME   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_7` FOREIGN KEY (`Change`) REFERENCES `Caems_Change_Or_Error` (`id`) 
+	CONSTRAINT `FK1_7` FOREIGN KEY (`Change`) REFERENCES `CAEMS_Change_Or_Error` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
@@ -174,8 +184,8 @@ CREATE TABLE `CAEMS_role_right_Admin` (
 `role`  BIGINT(20)   NOT NULL    ,
 `right`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_10` FOREIGN KEY (`role`) REFERENCES `Caems_role_Admin` (`id`) , 
-	CONSTRAINT `FK1_11` FOREIGN KEY (`right`) REFERENCES `Caems_right_Admin` (`id`) 
+	CONSTRAINT `FK1_10` FOREIGN KEY (`role`) REFERENCES `CAEMS_role_Admin` (`id`) , 
+	CONSTRAINT `FK1_11` FOREIGN KEY (`right`) REFERENCES `CAEMS_right_Admin` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
@@ -186,8 +196,8 @@ CREATE TABLE `CAEMS_role_right_User` (
 `role`  BIGINT(20)   NOT NULL    ,
 `right`  BIGINT(20)   NOT NULL    ,
 	PRIMARY KEY (`id`), 
-	CONSTRAINT `FK1_12` FOREIGN KEY (`role`) REFERENCES `Caems_role_User` (`id`) , 
-	CONSTRAINT `FK1_13` FOREIGN KEY (`right`) REFERENCES `Caems_right_User` (`id`) 
+	CONSTRAINT `FK1_12` FOREIGN KEY (`role`) REFERENCES `CAEMS_role_User` (`id`) , 
+	CONSTRAINT `FK1_13` FOREIGN KEY (`right`) REFERENCES `CAEMS_right_User` (`id`) 
 	)
 	COLLATE='latin1_swedish_ci'
 	ENGINE=InnoDB;
@@ -201,11 +211,11 @@ insert into CAEMS_authenticate_SuperAdmin(first_name,last_name, email,password, 
 
  insert into CAEMS_right_Admin(rightName) values('edit_Users');
 
- insert into CAEMS_right_Admin(rightName) values('new_Organization');
+ insert into CAEMS_right_Admin(rightName) values('new_Clients');
 
- insert into CAEMS_right_Admin(rightName) values('view_Organization');
+ insert into CAEMS_right_Admin(rightName) values('view_Clients');
 
- insert into CAEMS_right_Admin(rightName) values('edit_Organization');
+ insert into CAEMS_right_Admin(rightName) values('edit_Clients');
 
  insert into CAEMS_right_Admin(rightName) values('new_Project');
 
@@ -287,11 +297,11 @@ insert into CAEMS_authenticate_SuperAdmin(first_name,last_name, email,password, 
 
   insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Users' ;
 
-  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Organization' ;
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Clients' ;
 
-  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Organization' ;
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'view_Clients' ;
 
-  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Organization' ;
+  insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'edit_Clients' ;
 
   insert into CAEMS_role_right_Admin(role, `right`) select 1, id from CAEMS_right_Admin where rightName = 'new_Project' ;
 
