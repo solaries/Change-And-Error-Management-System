@@ -34,6 +34,8 @@ There is an "sql.txt" file that creates the database tables and populates some o
 Please check out the application at the urls i have shared.
 
 User: https://logger.solarinolakunle.com/User/login
+
 Admin: https://logger.solarinolakunle.com/Admin/login 
+
 I'll appreciate suggestions and feedback.
  
