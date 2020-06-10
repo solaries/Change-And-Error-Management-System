@@ -513,16 +513,22 @@ namespace sphinxsolaries.Caems.Controllers
                 if(response.IndexOf("uccess") > -1){
                     return RedirectToAction("view_Users", "User");
                 }
-                else{
-                      ViewBag.First_name = First_name;
-                      ViewBag.Last_name = Last_name;
-                      ViewBag.Email = Email;
-                      ViewBag.Role = Role;
-                      //ViewBag.Password = Password;
-                      //ViewBag.Password2 = Password2;
-                      //ViewBag.Organization = Organization;
-                      //ViewBag.Lead_user = Lead_user;
-                      //ViewBag.Service_company = Service_company;
+                else
+                {
+                    ViewBag.Data0 = centralCalls.get_role_User(" where   client is null or  client = " + Session["client"].ToString());
+                    ViewBag.Data1 = centralCalls.get_Client("");
+                    ViewBag.Data2 = centralCalls.get_Service_Company("");
+                    getStatus();
+                    ViewBag.id = id;
+                    ViewBag.First_name = First_name;
+                    ViewBag.Last_name = Last_name;
+                    ViewBag.Email = Email;
+                    ViewBag.Role = Role;
+                    //ViewBag.Password = Password;
+                    //ViewBag.Password2 = Password2;
+                    //ViewBag.Organization = Organization;
+                    //ViewBag.Lead_user = Lead_user;
+                    //ViewBag.Service_company = Service_company;
                      
                      return View();
                 }
@@ -746,12 +752,18 @@ namespace sphinxsolaries.Caems.Controllers
                 if(response.IndexOf("uccess") > -1){
                     return RedirectToAction("view_Change_Or_Errors", "User");
                 }
-                else{
-                      ViewBag.Project = Project;
-                      ViewBag.Service_company = Service_company;
-                      ViewBag.User = User;
-                      ViewBag.Change_or_error_detail = Change_or_error_detail;
-                      ViewBag.Log_date = Log_date;
+                else
+                {
+                    ViewBag.Data0 = centralCalls.get_Project(" where Organization   = " + Session["client"].ToString() + " ");
+                    ViewBag.Data1 = centralCalls.get_Service_Company("");
+                    ViewBag.Data2 = centralCalls.get_authenticate_Admin("");
+                    getStatus();
+                    ViewBag.id = id;
+                    ViewBag.Project = Project;
+                    ViewBag.Service_company = Service_company;
+                    ViewBag.User = User;
+                    ViewBag.Change_or_error_detail = Change_or_error_detail;
+                    ViewBag.Log_date = Log_date;
                      
                      return View();
                 }
@@ -981,10 +993,13 @@ namespace sphinxsolaries.Caems.Controllers
                 }
                 else{
 
-                    ViewBag.Project_Title = Project_Title;
-                    ViewBag.Change2 = Change2;
+                    ViewBag.Data0 = centralCalls.get_Change_Or_Error("");
+                    getStatus();
                     ViewBag.id = id;
-                    ViewBag.Action = oAction; 
+                    ViewBag.Change2 = Change2;
+                    ViewBag.Change = Change;
+                   // ViewBag.ActionValue = ActionValue;
+                    ViewBag.Project_Title = Project_Title; 
                      
                      return View();
                 }
@@ -1218,9 +1233,21 @@ namespace sphinxsolaries.Caems.Controllers
                 if(response.IndexOf("uccess") > -1){
                     return RedirectToAction("view_User_Roles", "User");
                 }
-                else{
-                      ViewBag.Rolename = Rolename;
-                     // ViewBag.Client = Client;
+                else
+                {
+                    getStatus();
+                    ViewBag.id = id;
+                    ViewBag.Rolename = Rolename;
+                    //ViewBag.Client = Client;
+                    ViewBag.Data1 = centralCalls.get_right_User("");
+                    List<CAEMS_role_right_User> roleRightUserList = centralCalls.get_role_right_User(" where role = " + id);
+                    string rightSet = "";
+                    foreach (CAEMS_role_right_User roleRightUser in roleRightUserList)
+                    {
+                        rightSet += "sphinxcol" + roleRightUser.Right + "sphinxcol";
+                    }
+
+                    ViewBag.rightSet = rightSet;
                      
                      return View();
                 }
@@ -1432,9 +1459,14 @@ namespace sphinxsolaries.Caems.Controllers
                 if(response.IndexOf("uccess") > -1){
                     return RedirectToAction("view_User_Rights", "User");
                 }
-                else{
-                      ViewBag.Role = Role;
-                      ViewBag.Right = Right;
+                else
+                {
+                    ViewBag.Data0 = centralCalls.get_role_User("");
+                    ViewBag.Data1 = centralCalls.get_right_User("");
+                    getStatus();
+                    ViewBag.id = id;
+                    ViewBag.Role = Role;
+                    ViewBag.Right = Right;
                      
                      return View();
                 }
