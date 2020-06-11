@@ -15466,7 +15466,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 23:00:50</publishTime>
     </File>
     <File Include="bin/Change And Error Management System.dll">
-      <publishTime>06/07/2020 04:24:03</publishTime>
+      <publishTime>06/10/2020 22:50:26</publishTime>
     </File>
     <File Include="bin/Microsoft.CSharp.dll">
       <publishTime>09/26/2012 04:16:08</publishTime>
@@ -15493,7 +15493,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/30/2020 17:36:40</publishTime>
     </File>
     <File Include="bin/NPoco.dll">
-      <publishTime>02/08/2017 17:17:26</publishTime>
+      <publishTime>08/02/2017 17:17:26</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>05/30/2020 17:36:12</publishTime>
@@ -15592,64 +15592,64 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:46:10</publishTime>
     </File>
     <File Include="Views/Admin/edit_Administrators.cshtml">
-      <publishTime>06/01/2020 19:33:11</publishTime>
+      <publishTime>01/06/2020 19:33:11</publishTime>
     </File>
     <File Include="Views/Admin/edit_Admin_Roles.cshtml">
-      <publishTime>06/01/2020 18:34:49</publishTime>
+      <publishTime>01/06/2020 18:34:49</publishTime>
     </File>
     <File Include="Views/Admin/edit_Admin_Role_To_Rights.cshtml">
       <publishTime>05/31/2020 18:10:12</publishTime>
     </File>
     <File Include="Views/Admin/edit_Change_Or_Errors.cshtml">
-      <publishTime>06/04/2020 15:03:27</publishTime>
+      <publishTime>04/06/2020 15:03:27</publishTime>
     </File>
     <File Include="Views/Admin/edit_Change_Or_Error_Movement.cshtml">
       <publishTime>06/06/2020 09:43:24</publishTime>
     </File>
     <File Include="Views/Admin/edit_Clients.cshtml">
-      <publishTime>06/02/2020 15:35:35</publishTime>
+      <publishTime>02/06/2020 15:35:35</publishTime>
     </File>
     <File Include="Views/Admin/edit_Project.cshtml">
-      <publishTime>06/02/2020 22:39:30</publishTime>
+      <publishTime>02/06/2020 22:39:30</publishTime>
     </File>
     <File Include="Views/Admin/edit_Service_Company.cshtml">
-      <publishTime>06/02/2020 14:59:49</publishTime>
+      <publishTime>02/06/2020 14:59:49</publishTime>
     </File>
     <File Include="Views/Admin/edit_Users.cshtml">
-      <publishTime>06/02/2020 20:36:58</publishTime>
+      <publishTime>02/06/2020 20:36:58</publishTime>
     </File>
     <File Include="Views/Admin/login.cshtml">
-      <publishTime>06/02/2020 18:59:34</publishTime>
+      <publishTime>06/10/2020 12:11:13</publishTime>
     </File>
     <File Include="Views/Admin/new_Administrators.cshtml">
       <publishTime>05/31/2020 18:57:45</publishTime>
     </File>
     <File Include="Views/Admin/new_Admin_Roles.cshtml">
-      <publishTime>06/01/2020 18:22:27</publishTime>
+      <publishTime>01/06/2020 18:22:27</publishTime>
     </File>
     <File Include="Views/Admin/new_Admin_Role_To_Rights.cshtml">
       <publishTime>05/31/2020 18:10:12</publishTime>
     </File>
     <File Include="Views/Admin/new_Change_Or_Errors.cshtml">
-      <publishTime>06/03/2020 10:26:18</publishTime>
+      <publishTime>03/06/2020 10:26:18</publishTime>
     </File>
     <File Include="Views/Admin/new_Clients.cshtml">
-      <publishTime>06/02/2020 15:21:41</publishTime>
+      <publishTime>02/06/2020 15:21:41</publishTime>
     </File>
     <File Include="Views/Admin/new_Project.cshtml">
-      <publishTime>06/02/2020 22:20:23</publishTime>
+      <publishTime>02/06/2020 22:20:23</publishTime>
     </File>
     <File Include="Views/Admin/new_Service_Company.cshtml">
-      <publishTime>06/02/2020 14:59:26</publishTime>
+      <publishTime>02/06/2020 14:59:26</publishTime>
     </File>
     <File Include="Views/Admin/new_Users.cshtml">
-      <publishTime>06/02/2020 18:06:05</publishTime>
+      <publishTime>02/06/2020 18:06:05</publishTime>
     </File>
     <File Include="Views/Admin/Register.cshtml">
-      <publishTime>05/31/2020 18:36:35</publishTime>
+      <publishTime>06/10/2020 12:11:20</publishTime>
     </File>
     <File Include="Views/Admin/view_Administrators.cshtml">
-      <publishTime>06/01/2020 19:04:29</publishTime>
+      <publishTime>01/06/2020 19:04:29</publishTime>
     </File>
     <File Include="Views/Admin/view_Admin_Roles.cshtml">
       <publishTime>05/31/2020 18:10:12</publishTime>
@@ -15658,22 +15658,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:10:12</publishTime>
     </File>
     <File Include="Views/Admin/view_Change_Or_Errors.cshtml">
-      <publishTime>06/04/2020 14:57:50</publishTime>
+      <publishTime>04/06/2020 14:57:50</publishTime>
     </File>
     <File Include="Views/Admin/view_Change_Or_Error_Movement.cshtml">
       <publishTime>06/06/2020 09:25:36</publishTime>
     </File>
     <File Include="Views/Admin/view_Clients.cshtml">
-      <publishTime>06/02/2020 15:31:09</publishTime>
+      <publishTime>02/06/2020 15:31:09</publishTime>
     </File>
     <File Include="Views/Admin/view_Project.cshtml">
-      <publishTime>06/04/2020 10:42:50</publishTime>
+      <publishTime>04/06/2020 10:42:50</publishTime>
     </File>
     <File Include="Views/Admin/view_Service_Company.cshtml">
-      <publishTime>06/02/2020 15:01:17</publishTime>
+      <publishTime>02/06/2020 15:01:17</publishTime>
     </File>
     <File Include="Views/Admin/view_Users.cshtml">
-      <publishTime>06/02/2020 20:10:38</publishTime>
+      <publishTime>02/06/2020 20:10:38</publishTime>
     </File>
     <File Include="Views/shared/_Admin.cshtml">
       <publishTime>06/06/2020 11:48:13</publishTime>
@@ -15703,7 +15703,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:10:12</publishTime>
     </File>
     <File Include="Views/SuperAdmin/login.cshtml">
-      <publishTime>05/31/2020 18:10:12</publishTime>
+      <publishTime>06/10/2020 22:42:51</publishTime>
     </File>
     <File Include="Views/SuperAdmin/view_Administrators.cshtml">
       <publishTime>06/07/2020 00:30:13</publishTime>
@@ -15721,7 +15721,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/07/2020 01:10:08</publishTime>
     </File>
     <File Include="Views/User/Change_Password.cshtml">
-      <publishTime>06/02/2020 18:43:59</publishTime>
+      <publishTime>02/06/2020 18:43:59</publishTime>
     </File>
     <File Include="Views/User/edit_Change_Or_Errors.cshtml">
       <publishTime>06/06/2020 20:16:37</publishTime>
@@ -15733,13 +15733,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/06/2020 12:18:14</publishTime>
     </File>
     <File Include="Views/User/edit_User_Rights.cshtml">
-      <publishTime>06/01/2020 18:06:31</publishTime>
+      <publishTime>01/06/2020 18:06:31</publishTime>
     </File>
     <File Include="Views/User/edit_User_Roles.cshtml">
       <publishTime>06/06/2020 11:33:33</publishTime>
     </File>
     <File Include="Views/User/login.cshtml">
-      <publishTime>06/02/2020 21:26:26</publishTime>
+      <publishTime>02/06/2020 21:26:26</publishTime>
     </File>
     <File Include="Views/User/new_Change_Or_Errors.cshtml">
       <publishTime>06/06/2020 19:51:28</publishTime>
@@ -15748,7 +15748,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/06/2020 12:06:49</publishTime>
     </File>
     <File Include="Views/User/new_User_Rights.cshtml">
-      <publishTime>06/01/2020 18:06:31</publishTime>
+      <publishTime>01/06/2020 18:06:31</publishTime>
     </File>
     <File Include="Views/User/new_User_Roles.cshtml">
       <publishTime>06/06/2020 10:36:48</publishTime>
@@ -15763,7 +15763,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/06/2020 12:31:13</publishTime>
     </File>
     <File Include="Views/User/view_User_Rights.cshtml">
-      <publishTime>06/01/2020 18:06:31</publishTime>
+      <publishTime>01/06/2020 18:06:31</publishTime>
     </File>
     <File Include="Views/User/view_User_Roles.cshtml">
       <publishTime>06/06/2020 10:52:06</publishTime>
@@ -15775,7 +15775,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:10:13</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/07/2020 02:15:25</publishTime>
+      <publishTime>06/10/2020 22:51:28</publishTime>
     </File>
   </ItemGroup>
 </Project>
