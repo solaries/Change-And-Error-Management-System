@@ -1,9 +1,7 @@
 
 @{
     List<sphinxsolaries.Caems.Data.Models.CAEMS_right_Admin> data1 = (List<sphinxsolaries.Caems.Data.Models.CAEMS_right_Admin>)@ViewBag.data1;
-}
- 
-
+} 
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">New Admin Roles</h4>
@@ -11,15 +9,13 @@
             <form id ="widgetu1290"class="form-valide" action="#"  method="post" enctype="multipart/form-data"> 
                 @Html.AntiForgeryToken()  
                 <div class="form-group row">
-                <label class="col-lg-4 col-form-label">Rolename</label>
-                <div class="col-lg-6">
-                     <input id="Rolename" name="Rolename" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="60"
-                     placeholder="roleName" />
+                    <label class="col-lg-4 col-form-label">Rolename</label>
+                    <div class="col-lg-6">
+                         <input id="Rolename" name="Rolename" required onkeyup="doClean(this)" type="text" class="form-control" maxlength="60"
+                         placeholder="roleName" />
                      </div>
-                   </div>
-
-                <input type="hidden" value="" id="selectedRights" name="selectedRights" />
-
+                 </div> 
+                <input type="hidden" value="" id="selectedRights" name="selectedRights" /> 
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered zero-configuration">
                         <thead>
@@ -37,8 +33,7 @@
                                 </td>
                                 <td>@Html.DisplayFor(modelItem => item.Rightname)</td> 
                             </tr>
-                            }
-
+                            } 
                         </tbody>
                         <tfoot>
                             <tr>
@@ -47,10 +42,7 @@
                             </tr>
                         </tfoot>
                     </table>
-                </div>
-
-
-
+                </div> 
                 <div class="form-group row">
                     <div class="col-lg-8 ml-auto">
                         <button type="button" class="btn btn-primary" onclick="checkAndGo()">Submit</button>
@@ -69,34 +61,21 @@
         else {
             selectedRights += "sphinxcol" + id + "sphinxcol";
         }
-        document.getElementById("selectedRights").value = selectedRights;
-        //alert(selectedRights);
-        //alert(document.getElementById("selectedRights").value);
+        document.getElementById("selectedRights").value = selectedRights; 
     }
-    function doClean(text) {
-
-        text.value = text.value.split("'").join("");
-
-        text.value = text.value.split(">").join("");
-
-        text.value = text.value.split("<").join("");
-
-        text.value = text.value.split("~").join("");
-
-        text.value = text.value.split("&").join("");
-
-        text.value = text.value.split("\\").join("");
-
-        text.value = text.value.split("_").join("");
-
-        text.value = text.value.split("%").join("");
-
-        text.value = text.value.split("\"").join("");
-
+    function doClean(text) { 
+        text.value = text.value.split("'").join(""); 
+        text.value = text.value.split(">").join(""); 
+        text.value = text.value.split("<").join(""); 
+        text.value = text.value.split("~").join(""); 
+        text.value = text.value.split("&").join(""); 
+        text.value = text.value.split("\\").join(""); 
+        text.value = text.value.split("_").join(""); 
+        text.value = text.value.split("%").join(""); 
+        text.value = text.value.split("\"").join(""); 
     }
 
-    function doCleanN(text) {
-
+    function doCleanN(text) { 
         var list = "0123456789";
 
         var data = text.value;
